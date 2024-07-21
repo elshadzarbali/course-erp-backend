@@ -4,3 +4,8 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:migrations/changelog-master.xml
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml #Location of MyBatis xml config file.
+  mapper-locations: classpath:mybatis/mappers/*.xml #Locations of MyBatis mapper files
+  type-aliases-package: com.mycompany.courseerpbackend.models.mybatis #location of our entities
