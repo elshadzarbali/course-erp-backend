@@ -20,17 +20,17 @@ public class CourseErpBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user = User.builder()
-				.name("Elshad 2")
-				.surname("Zarbalizade")
-				.status(UserStatus.ACTIVE)
-				.roleId(1L)
-				.email("elshad@gmail.com")
-				.phoneNumber("501111111")
-				.password("myPassword")
-				.build();
-		userRepository.insert(user);
-
-		System.out.println(String.format("%s id user inserted", user.getId()));
+//		User user = User.builder()
+//				.name("Elshad")
+//				.surname("Zarbalizade")
+//				.status(UserStatus.ACTIVE)
+//				.roleId(1L)
+//				.email("elshad@gmail.com")
+//				.phoneNumber("501111111")
+//				.password("myPassword")
+//				.build();
+//		userRepository.insert(user);
+//
+//		System.out.println(String.format("%s id user inserted", user.getId()));
 	}
 }
