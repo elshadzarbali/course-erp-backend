@@ -1,36 +1,76 @@
 package com.mycompany.courseerpbackend;
 
-import com.mycompany.courseerpbackend.models.enums.user.UserStatus;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
-import com.mycompany.courseerpbackend.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mycompany.courseerpbackend.models.properties.security.SecurityProperties;
+import com.mycompany.courseerpbackend.services.security.AccessTokenManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.util.Base64;
+
 @SpringBootApplication
+@RequiredArgsConstructor
 public class CourseErpBackendApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CourseErpBackendApplication.class, args);
 	}
 
-	@Autowired
-	private UserRepository userRepository;
+//	private final SecurityProperties securityProperties;
+
+	private final AccessTokenManager accessTokenManager;
 
 	@Override
 	public void run(String... args) throws Exception {
-//		User user = User.builder()
-//				.name("Elshad")
-//				.surname("Zarbalizade")
-//				.status(UserStatus.ACTIVE)
-//				.roleId(1L)
-//				.email("elshad@gmail.com")
-//				.phoneNumber("501111111")
-//				.password("myPassword")
-//				.build();
-//		userRepository.insert(user);
+
+		User user = User.builder()
+				.email("elshad@gmail.com")
+				.build();
+		user.setId(1L);
+
+		System.out.println(accessTokenManager.generate(user));
+
+		// for seeing security properties (public-key, private-key etc.) in yml file
+//		System.out.println(securityProperties);
+
+		// for generating public and private key
+//		KeyPairGenerator keyGenerator = KeyPairGenerator.getInstance("RSA");
+//		keyGenerator.initialize(2048); // for RS256
+//		KeyPair kp = keyGenerator.genKeyPair();
+//		PublicKey publicKey = kp.getPublic();
+//		PrivateKey privateKey = kp.getPrivate();
 //
-//		System.out.println(String.format("%s id user inserted", user.getId()));
+//		String encodedPublicKey = Base64.getEncoder().encodeToString(publicKey.getEncoded());
+//		String encodedPrivateKey = Base64.getEncoder().encodeToString(privateKey.getEncoded());
+//
+//		System.out.println(convertToPublicKey(encodedPublicKey));
+//
+//		System.out.println();
+//
+//		System.out.println(convertToPrivateKey(encodedPrivateKey));
+
+	}
+
+	private static String convertToPrivateKey(String key) {
+		StringBuilder result = new StringBuilder();
+		result.append("-----BEGIN PRIVATE KEY-----\n");
+		result.append(key);
+		result.append("\n-----END PRIVATE KEY-----");
+		return result.toString();
+	}
+
+	private static String convertToPublicKey(String key) {
+		StringBuilder result = new StringBuilder();
+		result.append("-----BEGIN PUBLIC KEY-----\n");
+		result.append(key);
+		result.append("\n-----END PUBLIC KEY-----");
+		return result.toString();
 	}
 }
