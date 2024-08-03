@@ -35,7 +35,13 @@ public class CourseErpBackendApplication implements CommandLineRunner {
 				.build();
 		user.setId(1L);
 
-		System.out.println(accessTokenManager.generate(user));
+		final String token = accessTokenManager.generate(user);
+
+		System.out.println(token);
+
+		System.out.println(
+				accessTokenManager.read(token).get("email", String.class)
+		);
 
 		// for seeing security properties (public-key, private-key etc.) in yml file
 //		System.out.println(securityProperties);

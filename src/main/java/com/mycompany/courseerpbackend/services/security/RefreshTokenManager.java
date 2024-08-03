@@ -1,5 +1,6 @@
 package com.mycompany.courseerpbackend.services.security;
 
+import com.mycompany.courseerpbackend.models.dto.RefreshTokenDto;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.properties.security.SecurityProperties;
 import com.mycompany.courseerpbackend.services.base.TokenGenerator;
@@ -14,37 +15,39 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
-@Component // I think it will be @Service
+@Component
 @Slf4j
 @RequiredArgsConstructor
-public class AccessTokenManager implements TokenGenerator<User>, TokenReader<Claims> {
+public class RefreshTokenManager implements TokenGenerator<RefreshTokenDto>, TokenReader<Claims> {
 
     private final SecurityProperties securityProperties;
 
     @Override
-    public String generate(User obj) {
+    public String generate(RefreshTokenDto obj) {
+
+        final User user = obj.getUser();
 
         Claims claims = Jwts.claims();
-        claims.put("email", obj.getEmail());
+        claims.put("email", user.getEmail());
+        claims.put("type", "REFRESH_TOKEN");
 
         Date now = new Date();
-        Date exp = new Date(now.getTime() + securityProperties.getJwt().getAccessTokenValidityTime());
+        Date exp = new Date(now.getTime() + securityProperties.getJwt().getRefreshTokenValidityTime(obj.isRememberMe()));
 
         return Jwts.builder()
-                .setSubject(String.valueOf(obj.getId()))
+                .setSubject(String.valueOf(user.getId()))
                 .setIssuedAt(now)
                 .setExpiration(exp)
                 .addClaims(claims)
-                .signWith(PublicPrivateKeyUtils.getPrivateKey(), SignatureAlgorithm.RS256) // signed with Private Key to secure token
-                .compact();
-    }
+                .signWith(PublicPrivateKeyUtils.getPrivateKey(), SignatureAlgorithm.RS256)
+                .compact();    }
 
     @Override
     public Claims read(String token) {
         return Jwts.parserBuilder()
-                .setSigningKey(PublicPrivateKeyUtils.getPublicKey()) // setting Public Key to verify signed token
+                .setSigningKey(PublicPrivateKeyUtils.getPublicKey())
                 .build()
-                .parseClaimsJws(token) // parseClaimsJws() for signed JWTs, parseClaimsJwt() for unsigned JWTs
+                .parseClaimsJws(token)
                 .getBody();
     }
 }
