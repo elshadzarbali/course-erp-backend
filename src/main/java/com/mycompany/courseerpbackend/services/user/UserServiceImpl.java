@@ -1,5 +1,6 @@
 package com.mycompany.courseerpbackend.services.user;
 
+import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(
-                // todo: implement real exception model
-                () -> new RuntimeException("User not found")
+                () -> BaseException.notFound(User.class.getSimpleName(), "email", email)
         );
     }
 }

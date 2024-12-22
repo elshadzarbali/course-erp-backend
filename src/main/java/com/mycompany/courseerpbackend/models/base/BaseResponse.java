@@ -1,30 +1,80 @@
 package com.mycompany.courseerpbackend.models.base;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.types.NotFoundExceptionType;
+import com.mycompany.courseerpbackend.models.enums.response.ResponseMessages;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
+import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.NOT_FOUND;
+import static com.mycompany.courseerpbackend.models.enums.response.SuccessResponseMessages.SUCCESS;
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PROTECTED)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResponse<T> {
 
     HttpStatus status;
-    String message;
+    Meta meta;
     T data;
+
+    @Data
+    @AllArgsConstructor(access = AccessLevel.PRIVATE)
+    @NoArgsConstructor(access = AccessLevel.PRIVATE)
+    @Builder(access = AccessLevel.PRIVATE)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    public static class Meta {
+        String key; // ex: not_found
+        String message;
+
+        public static Meta of(String key, String message) {
+            return Meta.builder()
+                    .key(key)
+                    .message(message)
+                    .build();
+        }
+
+        public static Meta of(ResponseMessages responseMessages) {
+            return of(responseMessages.key(), responseMessages.message());
+        }
+
+        public static Meta of(BaseException ex) {
+            if (ex.getResponseMessages().equals(NOT_FOUND)) {
+                NotFoundExceptionType notFoundData = ex.getNotFoundData();
+                return of(
+                        String.format(ex.getResponseMessages().key(), notFoundData.getTarget().toLowerCase()),
+                        String.format(
+                                ex.getResponseMessages().message(),
+                                notFoundData.getTarget(),
+                                notFoundData.getFields().toString()
+                        )
+                );
+            }
+
+            return of(ex.getResponseMessages());
+        }
+    }
 
     public static <T> BaseResponse<T> success(T data) {
         return BaseResponse.<T>builder()
                 .status(HttpStatus.OK)
-                .message("Success")
+                .meta(Meta.of(SUCCESS))
                 .data(data)
                 .build();
     }
 
     public static <T> BaseResponse<T> success() {
         return BaseResponse.success(null);
+    }
+
+    public static BaseResponse<?> error(BaseException ex) {
+        return BaseResponse.builder()
+                .meta(Meta.of(ex))
+                .status(ex.getResponseMessages().status())
+                .build();
     }
 }
