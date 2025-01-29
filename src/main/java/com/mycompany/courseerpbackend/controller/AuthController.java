@@ -3,6 +3,7 @@ package com.mycompany.courseerpbackend.controller;
 import com.mycompany.courseerpbackend.models.base.BaseResponse;
 import com.mycompany.courseerpbackend.models.payload.auth.LoginPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
+import com.mycompany.courseerpbackend.models.payload.auth.SignUpPayload;
 import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.security.AuthBusinessService;
 import lombok.RequiredArgsConstructor;
@@ -31,6 +32,12 @@ public class AuthController {
     @PostMapping("/logout")
     public BaseResponse<Void> logout() {
         authBusinessService.logout();
+        return BaseResponse.success();
+    }
+
+    @PostMapping("/sign-up")
+    public BaseResponse<Void> signUp(@RequestBody SignUpPayload payload) {
+        authBusinessService.signUp(payload);
         return BaseResponse.success();
     }
 
