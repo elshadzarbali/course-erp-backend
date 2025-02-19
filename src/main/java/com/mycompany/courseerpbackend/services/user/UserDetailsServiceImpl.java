@@ -1,5 +1,8 @@
 package com.mycompany.courseerpbackend.services.user;
 
+import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages;
+import com.mycompany.courseerpbackend.models.enums.response.ResponseMessages;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.security.LoggedInUserDetails;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getByEmail(username);
+
+        if (!user.isActive()) {
+            throw BaseException.of(ErrorResponseMessages.USER_NOT_ACTIVE);
+        }
 
         return new LoggedInUserDetails(user.getEmail(), user.getPassword(), new ArrayList<>());
     }

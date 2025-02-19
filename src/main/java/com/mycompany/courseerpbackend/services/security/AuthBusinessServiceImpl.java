@@ -7,6 +7,7 @@ import com.mycompany.courseerpbackend.models.mappers.CourseEntityMapper;
 import com.mycompany.courseerpbackend.models.mappers.UserEntityMapper;
 import com.mycompany.courseerpbackend.models.mybatis.branch.Branch;
 import com.mycompany.courseerpbackend.models.mybatis.course.Course;
+import com.mycompany.courseerpbackend.models.mybatis.employee.Employee;
 import com.mycompany.courseerpbackend.models.mybatis.role.Role;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.payload.auth.LoginPayload;
@@ -15,6 +16,7 @@ import com.mycompany.courseerpbackend.models.payload.auth.SignUpPayload;
 import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.branch.BranchService;
 import com.mycompany.courseerpbackend.services.course.CourseService;
+import com.mycompany.courseerpbackend.services.employee.EmployeeService;
 import com.mycompany.courseerpbackend.services.role.RoleService;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +48,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     private final RoleService roleService;
     private final CourseService courseService;
     private final BranchService branchService;
+    private final EmployeeService employeeService;
 
     @Override
     public LoginResponse login(LoginPayload payload) {
@@ -88,8 +91,10 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
         courseService.insertCourse(course);
 
         // Stage 3: Default branch insert
-        Branch branch = populateDefaultBranchData(payload, course);
-        branchService.insert(branch);
+        branchService.insert(populateDefaultBranchData(payload, course));
+
+        // Stage 4: Employee insert
+        employeeService.insert(Employee.builder().userId(user.getId()).build());
 
         /*
         1. course insert
@@ -119,8 +124,9 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
                     new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword())
             );
         } catch (AuthenticationException e) {
-            // todo: Implement custom exception model
-            throw new RuntimeException("Exception");
+            throw e.getCause() instanceof BaseException ?
+                    (BaseException) e.getCause() :
+                    BaseException.unexpected();
         }
     }
 

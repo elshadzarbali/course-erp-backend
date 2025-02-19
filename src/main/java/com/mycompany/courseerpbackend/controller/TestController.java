@@ -23,7 +23,7 @@ public class TestController {
 
     @GetMapping("/test/no-auth")
     public BaseResponse<String> testNoAuth() {
-        userService.getByEmail("jhdkfjskdjfk");
+//        userService.getByEmail("jhdkfjskdjfk");
         return BaseResponse.success("Course ERP - No Auth");
     }
 }
