@@ -1,8 +1,10 @@
 package com.mycompany.courseerpbackend;
 
 import com.mycompany.courseerpbackend.models.enums.user.UserStatus;
+import com.mycompany.courseerpbackend.models.mybatis.country.Country;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.properties.security.SecurityProperties;
+import com.mycompany.courseerpbackend.services.country.CountryService;
 import com.mycompany.courseerpbackend.services.security.AccessTokenManager;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 @RequiredArgsConstructor
@@ -25,6 +30,7 @@ public class CourseErpBackendApplication implements CommandLineRunner {
 
 	private final UserService userService;
 	private final PasswordEncoder passwordEncoder;
+	private final CountryService countryService;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -46,6 +52,39 @@ public class CourseErpBackendApplication implements CommandLineRunner {
 //
 //		System.out.println(userService.getByEmail("elshad@gmail.com"));
 
+//		testingCountryService();
 
+
+	}
+
+	private void testingCountryService() {
+//		// insert
+//		List<Country> countries = new ArrayList<>();
+//		countries.add(new Country("Azerbaijan"));
+//		countries.add(new Country("Turkey"));
+//		countries.add(new Country("Georgia"));
+//		countries.add(new Country("Russia"));
+//		countries.add(new Country("Iran"));
+//		countries.add(new Country("United States"));
+//
+//		for (Country country : countries) {
+//			countryService.insert(country);
+//		}
+
+		// findAll
+		List<Country> all = countryService.findAll();
+		System.out.println("All countries: \n" + all);
+
+		// getById
+		Country foundCountry = countryService.findById(2L);
+		System.out.println("Found country: \n" + foundCountry);
+
+		// update
+		foundCountry.setName("New Country4");
+		countryService.update(foundCountry);
+
+		// getById after update
+		Country foundCountryAfterUpdate = countryService.findById(2L);
+		System.out.println("Found country: \n" + foundCountryAfterUpdate);
 	}
 }

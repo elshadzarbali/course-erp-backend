@@ -1,4 +1,4 @@
-package com.mycompany.courseerpbackend.models.mybatis.employee;
+package com.mycompany.courseerpbackend.models.mybatis.language;
 
 import com.mycompany.courseerpbackend.models.mybatis.base.BaseEntity;
 import lombok.*;
@@ -11,8 +11,8 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Employee extends BaseEntity {
+public class Language extends BaseEntity {
 
-    Long userId;
+    String name;
 
 }
