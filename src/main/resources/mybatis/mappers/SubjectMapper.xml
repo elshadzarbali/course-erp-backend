@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mycompany.courseerpbackend.repository.SubjectRepository">
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO subjects (name, course_id, language_id)
+        VALUES (#{name}, #{courseId}, #{languageId})
+    </insert>
+
+    <update id="update" parameterType="Subject">
+        UPDATE subjects s
+        SET name = #{name}, course_id = #{courseId}, language_id = #{languageId}
+        WHERE s.id = #{id}
+    </update>
+
+    <select id="findById" resultType="Subject">
+        SELECT
+            <include refid="subjectBaseColumns"/>
+        FROM subjects s
+        WHERE s.id = #{id}
+          AND s.is_deleted = false
+    </select>
+
+    <select id="findAll" resultType="Subject">
+        SELECT
+            <include refid="subjectBaseColumns"/>
+        FROM subjects s
+        WHERE s.is_deleted = false
+    </select>
+
+    <sql id="subjectBaseColumns">
+        s.id,
+        s.name,
+        s.course_id,
+        s.language_id,
+        s.is_deleted
+    </sql>
+
+</mapper>
