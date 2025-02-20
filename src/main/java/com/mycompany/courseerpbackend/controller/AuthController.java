@@ -4,6 +4,8 @@ import com.mycompany.courseerpbackend.models.base.BaseResponse;
 import com.mycompany.courseerpbackend.models.payload.auth.LoginPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.SignUpPayload;
+import com.mycompany.courseerpbackend.models.payload.otp.BaseOTPChannelRequest;
+import com.mycompany.courseerpbackend.models.payload.otp.BaseOTPRequest;
 import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.security.AuthBusinessService;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +40,18 @@ public class AuthController {
     @PostMapping("/sign-up")
     public BaseResponse<Void> signUp(@RequestBody SignUpPayload payload) {
         authBusinessService.signUp(payload);
+        return BaseResponse.success();
+    }
+
+    @PostMapping("/sign-up/otp/request")
+    public BaseResponse<Void> otpRequest(@RequestBody BaseOTPChannelRequest payload) {
+        authBusinessService.signUpOTP(payload);
+        return BaseResponse.success();
+    }
+
+    @PostMapping("/sign-up/otp/confirmation")
+    public BaseResponse<Void> otpConfirmation(@RequestBody BaseOTPRequest payload) {
+        authBusinessService.signUpOTPConfirmation(payload);
         return BaseResponse.success();
     }
 

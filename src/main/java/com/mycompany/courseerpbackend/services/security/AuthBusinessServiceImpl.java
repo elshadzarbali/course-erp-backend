@@ -13,10 +13,13 @@ import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.payload.auth.LoginPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.SignUpPayload;
+import com.mycompany.courseerpbackend.models.payload.otp.BaseOTPChannelRequest;
+import com.mycompany.courseerpbackend.models.payload.otp.BaseOTPRequest;
 import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.branch.BranchService;
 import com.mycompany.courseerpbackend.services.course.CourseService;
 import com.mycompany.courseerpbackend.services.employee.EmployeeService;
+import com.mycompany.courseerpbackend.services.otp.OTPFactory;
 import com.mycompany.courseerpbackend.services.role.RoleService;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -105,6 +108,17 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
         5. verification otp
         6. login - if user is not confirmed, user can't log in system
          */
+    }
+
+    @Override
+    public void signUpOTP(BaseOTPChannelRequest payload) {
+        // TODO: OTP processing
+        OTPFactory.handle(payload.getChannel()).send();
+    }
+
+    @Override
+    public void signUpOTPConfirmation(BaseOTPRequest payload) {
+        log.info("{} confirmed!", payload.getOtp());
     }
 
     @Override
