@@ -2,6 +2,7 @@ package com.mycompany.courseerpbackend.services.security;
 
 import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.models.dto.RefreshTokenDto;
+import com.mycompany.courseerpbackend.models.dto.SendOTPDto;
 import com.mycompany.courseerpbackend.models.enums.branch.BranchStatus;
 import com.mycompany.courseerpbackend.models.mappers.CourseEntityMapper;
 import com.mycompany.courseerpbackend.models.mappers.UserEntityMapper;
@@ -113,7 +114,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     @Override
     public void signUpOTP(BaseOTPChannelRequest payload) {
         // TODO: OTP processing
-        OTPFactory.handle(payload.getChannel()).send();
+        OTPFactory.handle(payload.getChannel()).send(SendOTPDto.of("user1@Gmail.com", "otpsignup-1"));
     }
 
     @Override

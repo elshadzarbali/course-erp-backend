@@ -1,4 +1,12 @@
 package com.mycompany.courseerpbackend.utils;
 
-public class OTPUtil {
+import java.util.Random;
+
+public class OTPUtils {
+
+    public static String generate() {
+        Random rand = new Random();
+        return String.format("%04d", rand.nextInt(10000));
+    }
+
 }
