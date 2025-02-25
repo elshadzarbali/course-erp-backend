@@ -14,5 +14,6 @@ import lombok.experimental.FieldDefaults;
 public class Language extends BaseEntity {
 
     String name;
+    Boolean hasLocalization;
 
 }

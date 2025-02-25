@@ -5,46 +5,12 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="subjects-table" author="elshadzarbalizade">
-        <createTable tableName="subjects">
-            <column name="id" type="BIGINT" autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
-            </column>
-            <column name="name" type="VARCHAR(50)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="course_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="language_id" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="is_deleted" type="BOOLEAN" defaultValue="false">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addForeignKeyConstraint  baseColumnNames="course_id"
-                                  baseTableName="subjects"
-                                  constraintName="fk_subjects_course_id"
-                                  deferrable="false"
-                                  initiallyDeferred="false"
-                                  onDelete="NO ACTION"
-                                  onUpdate="NO ACTION"
-                                  referencedColumnNames="id"
-                                  referencedTableName="courses"
-                                  validate="true"/>
-
-        <addForeignKeyConstraint  baseColumnNames="language_id"
-                                  baseTableName="subjects"
-                                  constraintName="fk_subjects_language_id"
-                                  deferrable="false"
-                                  initiallyDeferred="false"
-                                  onDelete="NO ACTION"
-                                  onUpdate="NO ACTION"
-                                  referencedColumnNames="id"
-                                  referencedTableName="languages"
-                                  validate="true"/>
+    <changeSet id="alter-languages-table" author="elshadzarbalizade">
+        <addColumn tableName="languages">
+            <column name="has_localization"
+                    type="boolean"
+                    defaultValue="false"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>
