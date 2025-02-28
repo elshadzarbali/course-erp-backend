@@ -72,6 +72,9 @@ public class SecurityConfig {
 
                     // Student endpoints
                     request.requestMatchers("/v1/students/**").authenticated();
+
+                    // Subject endpoints
+                    request.requestMatchers("/v1/subjects/**").authenticated();
                 })
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(eh -> eh.authenticationEntryPoint(authEntryPoint))
