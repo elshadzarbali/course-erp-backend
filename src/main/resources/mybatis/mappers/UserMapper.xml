@@ -18,6 +18,14 @@
           AND u.is_deleted =false
     </select>
 
+    <select id="findByPhoneNumber" resultType="User">
+        SELECT
+            <include refid="userBaseColumns"/>
+        FROM users u
+        WHERE u.phone_number = #{phoneNumber}
+        AND u.is_deleted = false
+    </select>
+
     <!-- SQL fragment -->
     <sql id="userBaseColumns">
         u.id,

@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
     public boolean checkByEmail(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
+
+    @Override
+    public boolean checkByPhoneNumber(String phoneNumber) {
+        return userRepository.findByPhoneNumber(phoneNumber).isPresent();
+    }
 }
