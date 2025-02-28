@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Group extends BaseEntity {
+public class Group extends BaseEntity<Long> {
 
     String name;
 
