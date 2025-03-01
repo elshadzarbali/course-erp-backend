@@ -1,10 +1,13 @@
 package com.mycompany.courseerpbackend.models.mybatis.base;
 
-import lombok.AccessLevel;
-import lombok.Data;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 @Data
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class IsDeletedEntity {
 

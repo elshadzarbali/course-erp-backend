@@ -4,10 +4,10 @@ import com.mycompany.courseerpbackend.models.enums.user.UserStatus;
 import com.mycompany.courseerpbackend.models.mybatis.base.BaseEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
-// SuperBuilder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
