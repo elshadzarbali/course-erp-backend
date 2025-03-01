@@ -1,4 +1,4 @@
-package com.mycompany.courseerpbackend.models.payload;
+package com.mycompany.courseerpbackend.models.payload.subject;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

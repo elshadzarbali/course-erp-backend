@@ -1,7 +1,7 @@
 package com.mycompany.courseerpbackend.controller;
 
 import com.mycompany.courseerpbackend.models.base.BaseResponse;
-import com.mycompany.courseerpbackend.models.payload.SubjectPayload;
+import com.mycompany.courseerpbackend.models.payload.subject.SubjectPayload;
 import com.mycompany.courseerpbackend.services.subject.SubjectBusinessService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

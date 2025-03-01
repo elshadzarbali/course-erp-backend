@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.subject;
 
-import com.mycompany.courseerpbackend.models.payload.SubjectPayload;
+import com.mycompany.courseerpbackend.models.payload.subject.SubjectPayload;
 
 public interface SubjectBusinessService {
 

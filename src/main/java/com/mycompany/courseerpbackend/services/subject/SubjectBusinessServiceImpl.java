@@ -1,7 +1,7 @@
 package com.mycompany.courseerpbackend.services.subject;
 
 import com.mycompany.courseerpbackend.models.mappers.SubjectEntityMapper;
-import com.mycompany.courseerpbackend.models.payload.SubjectPayload;
+import com.mycompany.courseerpbackend.models.payload.subject.SubjectPayload;
 import com.mycompany.courseerpbackend.services.language.LanguageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
