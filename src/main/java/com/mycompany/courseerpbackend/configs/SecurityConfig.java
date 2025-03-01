@@ -78,6 +78,9 @@ public class SecurityConfig {
 
                     // Language endpoints
                     request.requestMatchers("/v1/languages/**").authenticated();
+
+                    // Country endpoints
+                    request.requestMatchers("/v1/countries/**").authenticated();
                 })
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(eh -> eh.authenticationEntryPoint(authEntryPoint))
