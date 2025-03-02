@@ -1,6 +1,5 @@
 package com.mycompany.courseerpbackend.controller;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.models.base.BaseResponse;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

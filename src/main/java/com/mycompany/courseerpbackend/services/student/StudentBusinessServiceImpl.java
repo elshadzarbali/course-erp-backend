@@ -8,7 +8,9 @@ import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.payload.student.StudentPayload;
 import com.mycompany.courseerpbackend.services.role.RoleService;
 import com.mycompany.courseerpbackend.services.user.UserService;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,12 +20,13 @@ import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponse
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class StudentBusinessServiceImpl implements StudentBusinessService {
 
-    private final StudentService studentService;
-    private final UserService userService;
-    private final RoleService roleService;
-    private final PasswordEncoder passwordEncoder;
+    final StudentService studentService;
+    final UserService userService;
+    final RoleService roleService;
+    final PasswordEncoder passwordEncoder;
 
     // TODO: Assign process for groups
     @Override
