@@ -35,7 +35,7 @@ public class BaseException extends RuntimeException {
         return of(UNEXPECTED);
     }
 
-    public static BaseException notFound(String target, String field, String value) {
+    public static BaseException notFound(String target, String field, Object value) {
         return BaseException.builder()
                 .responseMessages(NOT_FOUND)
                 .notFoundData(

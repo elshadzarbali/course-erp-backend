@@ -1,9 +1,11 @@
 package com.mycompany.courseerpbackend.services.security;
 
 import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.models.common.proceedkey.ProceedKey;
 import com.mycompany.courseerpbackend.models.dto.RefreshTokenDto;
 import com.mycompany.courseerpbackend.models.dto.SendOTPDto;
 import com.mycompany.courseerpbackend.models.enums.branch.BranchStatus;
+import com.mycompany.courseerpbackend.models.enums.user.UserStatus;
 import com.mycompany.courseerpbackend.models.mappers.CourseEntityMapper;
 import com.mycompany.courseerpbackend.models.mappers.UserEntityMapper;
 import com.mycompany.courseerpbackend.models.mybatis.branch.Branch;
@@ -13,14 +15,16 @@ import com.mycompany.courseerpbackend.models.mybatis.role.Role;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.payload.auth.LoginPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
-import com.mycompany.courseerpbackend.models.payload.auth.SignUpPayload;
-import com.mycompany.courseerpbackend.models.payload.otp.BaseOTPChannelRequest;
-import com.mycompany.courseerpbackend.models.payload.otp.BaseOTPRequest;
+import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpPayload;
+import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPChannelRequest;
+import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPRequest;
 import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.branch.BranchService;
 import com.mycompany.courseerpbackend.services.course.CourseService;
 import com.mycompany.courseerpbackend.services.employee.EmployeeService;
 import com.mycompany.courseerpbackend.services.otp.OTPFactory;
+import com.mycompany.courseerpbackend.services.otp.OTPProceedTokenManager;
+import com.mycompany.courseerpbackend.services.redis.RedisService;
 import com.mycompany.courseerpbackend.services.role.RoleService;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import lombok.AccessLevel;
@@ -56,6 +60,8 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     final CourseService courseService;
     final BranchService branchService;
     final EmployeeService employeeService;
+    final OTPProceedTokenManager otpProceedTokenManager;
+    final RedisService redisService;
 
     @Override
     public LoginResponse login(LoginPayload payload) {
@@ -78,7 +84,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     }
 
     @Override
-    public void signUp(SignUpPayload payload) {
+    public ProceedKey signUp(SignUpPayload payload) {
         if (userService.checkByEmail(payload.getEmail())) {
             throw BaseException.of(EMAIL_ALREADY_REGISTERED);
         }
@@ -112,17 +118,37 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
         5. verification otp
         6. login - if user is not confirmed, user can't log in system
          */
+
+        return ProceedKey.builder().proceedKey(otpProceedTokenManager.generate(user)).build();
     }
 
     @Override
-    public void signUpOTP(BaseOTPChannelRequest payload) {
-        // TODO: OTP processing
-        OTPFactory.handle(payload.getChannel()).send(SendOTPDto.of("user1@Gmail.com", "otpsignup-1"));
+    public void signUpOTP(SignUpOTPChannelRequest payload) {
+        User user = userService.getById(
+                otpProceedTokenManager.getId(payload.getProceedKey())
+        );
+        OTPFactory.handle(payload.getChannel()).send(
+                SendOTPDto.of(payload.getChannel().getTarget(user), String.format("otpsignup-%s", user.getId()))
+        );
     }
 
     @Override
-    public void signUpOTPConfirmation(BaseOTPRequest payload) {
-        log.info("{} confirmed!", payload.getOtp());
+    public void signUpOTPConfirmation(SignUpOTPRequest payload) {
+        // TODO: (IT) Move these codes to separate service. This service can be OTPService
+        User user = userService.getById(
+                otpProceedTokenManager.getId(payload.getProceedKey())
+        );
+        final String otp = redisService.get(
+                String.format("otpsignup-%s", user.getId())
+        );
+        if (payload.getOtp().equals(otp)) {
+            user.setStatus(UserStatus.ACTIVE);
+            userService.update(user);
+            log.info("User confirmed!");
+        } else {
+            // TODO: (IT) Customize exception otp not found or something like this
+            throw BaseException.unexpected();
+        }
     }
 
     @Override

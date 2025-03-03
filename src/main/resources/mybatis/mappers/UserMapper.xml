@@ -9,12 +9,27 @@
         VALUES (#{name}, #{surname}, #{status}, #{roleId}, #{email}, #{phoneNumber}, #{password})
     </insert>
 
+    <update id="update" parameterType="User">
+        UPDATE users u
+        SET name = #{name}, surname = #{surname}, status = #{status},
+            role_id = #{roleId}, email = #{email}, phone_number = #{phoneNumber}
+        WHERE u.id = #{id}
+    </update>
+
     <!-- resultType shows models whose location is represented by type-aliases-package in application.yml file -->
     <select id="findByEmail" resultType="User">
         SELECT
             <include refid="userBaseColumns"/>
         FROM users u
         WHERE u.email = #{email}
+          AND u.is_deleted =false
+    </select>
+
+    <select id="findById" resultType="User">
+        SELECT
+            <include refid="userBaseColumns"/>
+        FROM users u
+        WHERE u.id = #{id}
           AND u.is_deleted =false
     </select>
 

@@ -1,7 +1,7 @@
 package com.mycompany.courseerpbackend.models.mappers;
 
 import com.mycompany.courseerpbackend.models.mybatis.course.Course;
-import com.mycompany.courseerpbackend.models.payload.auth.SignUpPayload;
+import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpPayload;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;

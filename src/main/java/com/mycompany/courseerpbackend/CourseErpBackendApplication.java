@@ -5,6 +5,7 @@ import com.mycompany.courseerpbackend.models.mybatis.country.Country;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.properties.security.SecurityProperties;
 import com.mycompany.courseerpbackend.services.country.CountryService;
+import com.mycompany.courseerpbackend.services.otp.OTPProceedTokenManager;
 import com.mycompany.courseerpbackend.services.security.AccessTokenManager;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +33,16 @@ public class CourseErpBackendApplication implements CommandLineRunner {
 	private final PasswordEncoder passwordEncoder;
 	private final CountryService countryService;
 
+	private final OTPProceedTokenManager otpProceedTokenManager;
+
 	@Override
 	public void run(String... args) throws Exception {
+
+		User user = userService.getByEmail("elshad@gmail.com");
+
+		String token = otpProceedTokenManager.generate(user);
+
+		System.out.println(token);
 
 		// inserting user manually
 //		User user = User.builder()
