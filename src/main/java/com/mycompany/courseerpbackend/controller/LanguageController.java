@@ -12,14 +12,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class LanguageController {
 
-    private final LanguageEntityMapper languageEntityMapper = LanguageEntityMapper.INSTANCE;
-
-    LanguageService languageService;
+    private final LanguageService languageService;
 
     @PostMapping
     public BaseResponse<Void> addLanguage(@RequestBody LanguagePayload languagePayload) {
         languageService.insert(
-                languageEntityMapper.fromLanguagePayloadToLanguage(languagePayload)
+                LanguageEntityMapper.INSTANCE.fromLanguagePayloadToLanguage(languagePayload)
         );
         return BaseResponse.success();
     }
@@ -27,7 +25,7 @@ public class LanguageController {
     @PutMapping("/{id}")
     public BaseResponse<Void> updateLanguage(@PathVariable Long id, @RequestBody LanguagePayload languagePayload) {
         languageService.update(
-                languageEntityMapper.updateLanguageFromLanguagePayload(languagePayload, id)
+                LanguageEntityMapper.INSTANCE.updateLanguageFromLanguagePayload(languagePayload, id)
         );
         return BaseResponse.success();
     }
