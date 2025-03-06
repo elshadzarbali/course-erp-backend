@@ -38,4 +38,14 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
+    @Override
+    public void addStudentToGroup(Long studentId, Long groupId) {
+        studentRepository.addStudentToGroup(studentId, groupId);
+    }
+
+    @Override
+    public boolean checkStudentAlreadyAddedToGroup(Long studentId, Long groupId) {
+        return studentRepository.checkStudentAlreadyAddedToGroup(studentId, groupId);
+    }
+
 }

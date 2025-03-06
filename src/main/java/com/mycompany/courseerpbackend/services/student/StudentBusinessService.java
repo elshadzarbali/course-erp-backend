@@ -6,4 +6,6 @@ public interface StudentBusinessService {
 
     void addStudent(StudentPayload studentPayload);
 
+    void addStudentToGroup(Long studentId, Long groupId);
+
 }

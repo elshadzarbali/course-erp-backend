@@ -18,4 +18,8 @@ public interface StudentRepository {
 
     List<Student> findAll();
 
+    void addStudentToGroup(@Param("studentId") Long studentId, @Param("groupId") Long groupId);
+
+    boolean checkStudentAlreadyAddedToGroup(@Param("studentId") Long studentId, @Param("groupId") Long groupId);
+
 }

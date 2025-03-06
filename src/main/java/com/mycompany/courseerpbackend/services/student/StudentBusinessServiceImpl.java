@@ -1,11 +1,13 @@
 package com.mycompany.courseerpbackend.services.student;
 
 import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages;
 import com.mycompany.courseerpbackend.models.mappers.UserEntityMapper;
 import com.mycompany.courseerpbackend.models.mybatis.role.Role;
 import com.mycompany.courseerpbackend.models.mybatis.student.Student;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.payload.student.StudentPayload;
+import com.mycompany.courseerpbackend.services.group.GroupService;
 import com.mycompany.courseerpbackend.services.role.RoleService;
 import com.mycompany.courseerpbackend.services.user.UserService;
 import lombok.AccessLevel;
@@ -27,6 +29,7 @@ public class StudentBusinessServiceImpl implements StudentBusinessService {
     final UserService userService;
     final RoleService roleService;
     final PasswordEncoder passwordEncoder;
+    final GroupService groupService;
 
     // TODO: Assign process for groups
     @Override
@@ -48,6 +51,20 @@ public class StudentBusinessServiceImpl implements StudentBusinessService {
         userService.insert(user);
 
         studentService.insert(Student.builder().userId(user.getId()).build());
+    }
+
+    @Override
+    public void addStudentToGroup(Long studentId, Long groupId) {
+        // checking existing of Student and Group
+        studentService.findById(studentId);
+        groupService.findById(groupId);
+
+        // checking if students already added to group
+        boolean alreadyAddedToGroup = studentService.checkStudentAlreadyAddedToGroup(studentId, groupId);
+
+        if (alreadyAddedToGroup) throw BaseException.of(ErrorResponseMessages.STUDENT_ALREADY_ADDED_TO_GROUP);
+
+        studentService.addStudentToGroup(studentId, groupId);
     }
 
 }

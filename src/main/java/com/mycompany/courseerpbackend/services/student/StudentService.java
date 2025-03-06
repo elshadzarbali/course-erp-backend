@@ -14,4 +14,8 @@ public interface StudentService {
 
     List<Student> findAll();
 
+    void addStudentToGroup(Long studentId, Long groupId);
+
+    boolean checkStudentAlreadyAddedToGroup(Long studentId, Long groupId);
+
 }
