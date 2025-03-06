@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.exception.types.NotFoundExceptionType;
 import com.mycompany.courseerpbackend.models.enums.response.ResponseMessages;
+import com.mycompany.courseerpbackend.models.enums.response.SuccessResponseMessages;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
 import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.NOT_FOUND;
+import static com.mycompany.courseerpbackend.models.enums.response.SuccessResponseMessages.CREATED;
 import static com.mycompany.courseerpbackend.models.enums.response.SuccessResponseMessages.SUCCESS;
 
 @Data
@@ -76,5 +78,17 @@ public class BaseResponse<T> {
                 .meta(Meta.of(ex))
                 .status(ex.getResponseMessages().status())
                 .build();
+    }
+
+    public static <T> BaseResponse<T> created(T data) {
+        return BaseResponse.<T>builder()
+                .status(HttpStatus.CREATED)
+                .meta(Meta.of(CREATED))
+                .data(data)
+                .build();
+    }
+
+    public static <T> BaseResponse<T> created() {
+        return BaseResponse.created(null);
     }
 }

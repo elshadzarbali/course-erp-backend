@@ -19,7 +19,7 @@ public class CountryController {
         countryService.insert(
                 CountryEntityMapper.INSTANCE.toEntity(countryPayload)
         );
-        return BaseResponse.success();
+        return BaseResponse.created();
     }
 
     @PutMapping("/{id}")

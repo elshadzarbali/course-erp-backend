@@ -19,7 +19,7 @@ public class GroupController {
         groupService.insert(
                 GroupEntityMapper.INSTANCE.toEntity(groupPayload)
         );
-        return BaseResponse.success();
+        return BaseResponse.created();
     }
 
     @PutMapping("/{id}")

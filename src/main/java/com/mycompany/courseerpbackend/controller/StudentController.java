@@ -16,7 +16,7 @@ public class StudentController {
     @PostMapping
     public BaseResponse<Void> addStudent(@RequestBody StudentPayload studentPayload) {
         studentBusinessService.addStudent(studentPayload);
-        return BaseResponse.success();
+        return BaseResponse.created();
     }
 
     @PostMapping("/{id}/groups/{groupId}")

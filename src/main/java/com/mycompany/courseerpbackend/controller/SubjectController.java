@@ -19,7 +19,7 @@ public class SubjectController {
     @PostMapping
     public BaseResponse<Void> createSubject(@RequestBody SubjectPayload subjectPayload) {
         subjectBusinessService.createSubject(subjectPayload);
-        return BaseResponse.success();
+        return BaseResponse.created();
     }
 
 }

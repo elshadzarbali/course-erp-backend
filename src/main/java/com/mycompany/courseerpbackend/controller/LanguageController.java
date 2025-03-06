@@ -19,7 +19,7 @@ public class LanguageController {
         languageService.insert(
                 LanguageEntityMapper.INSTANCE.fromLanguagePayloadToLanguage(languagePayload)
         );
-        return BaseResponse.success();
+        return BaseResponse.created();
     }
 
     @PutMapping("/{id}")
