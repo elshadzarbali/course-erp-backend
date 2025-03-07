@@ -1,5 +1,6 @@
 package com.mycompany.courseerpbackend.services.security;
 
+import com.mycompany.courseerpbackend.constants.OTPConstants;
 import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.models.common.proceedkey.ProceedKey;
 import com.mycompany.courseerpbackend.models.dto.RefreshTokenDto;
@@ -128,7 +129,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
                 otpProceedTokenManager.getId(payload.getProceedKey())
         );
         OTPFactory.handle(payload.getChannel()).send(
-                SendOTPDto.of(payload.getChannel().getTarget(user), String.format("otpsignup-%s", user.getId()))
+                SendOTPDto.of(payload.getChannel().getTarget(user), String.format(OTPConstants.SIGN_UP, user.getId()))
         );
     }
 
@@ -139,7 +140,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
                 otpProceedTokenManager.getId(payload.getProceedKey())
         );
         final String otp = redisService.get(
-                String.format("otpsignup-%s", user.getId())
+                String.format(OTPConstants.SIGN_UP, user.getId())
         );
         if (payload.getOtp().equals(otp)) {
             user.setStatus(UserStatus.ACTIVE);
