@@ -21,5 +21,6 @@
     <include file="migrations/1.0/1.1.4-students-groups-table.xml"/>
     <include file="migrations/1.0/1.1.5-translations.xml"/>
     <include file="migrations/1.0/1.1.6-create-teachers-table.xml"/>
+    <include file="migrations/1.0/1.1.7-teachers-schedule-table.xml"/>
 
 </databaseChangeLog>
