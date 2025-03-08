@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
+import static com.mycompany.courseerpbackend.utils.CommonUtils.throwIf;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,9 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getByEmail(username);
 
-        if (!user.isActive()) {
-            throw BaseException.of(ErrorResponseMessages.USER_NOT_ACTIVE);
-        }
+        throwIf(() -> !user.isActive(), BaseException.of(ErrorResponseMessages.USER_NOT_ACTIVE));
 
         return new LoggedInUserDetails(user.getEmail(), user.getPassword(), new ArrayList<>());
     }

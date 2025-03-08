@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.PHONE_NUMBER_ALREADY_EXIST;
+import static com.mycompany.courseerpbackend.utils.CommonUtils.throwIf;
 
 @Service
 @RequiredArgsConstructor
@@ -34,9 +35,10 @@ public class StudentBusinessServiceImpl implements StudentBusinessService {
     // TODO: Assign process for groups
     @Override
     public void addStudent(StudentPayload studentPayload) {
-        if (userService.checkByPhoneNumber(studentPayload.getPhoneNumber())) {
-            throw BaseException.of(PHONE_NUMBER_ALREADY_EXIST);
-        }
+        throwIf(
+                () -> userService.checkByPhoneNumber(studentPayload.getPhoneNumber()),
+                BaseException.of(PHONE_NUMBER_ALREADY_EXIST)
+        );
 
         // TODO: We will change role
         Role defaultRole = roleService.getDefaultRole();
@@ -60,9 +62,10 @@ public class StudentBusinessServiceImpl implements StudentBusinessService {
         groupService.findById(groupId);
 
         // checking if students already added to group
-        boolean alreadyAddedToGroup = studentService.checkStudentAlreadyAddedToGroup(studentId, groupId);
-
-        if (alreadyAddedToGroup) throw BaseException.of(ErrorResponseMessages.STUDENT_ALREADY_ADDED_TO_GROUP);
+        throwIf(
+                () -> studentService.checkStudentAlreadyAddedToGroup(studentId, groupId),
+                BaseException.of(ErrorResponseMessages.STUDENT_ALREADY_ADDED_TO_GROUP)
+        );
 
         studentService.addStudentToGroup(studentId, groupId);
     }

@@ -42,6 +42,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.EMAIL_ALREADY_REGISTERED;
+import static com.mycompany.courseerpbackend.utils.CommonUtils.throwIf;
 
 @Service
 @RequiredArgsConstructor
@@ -86,9 +87,10 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
 
     @Override
     public ProceedKey signUp(SignUpPayload payload) {
-        if (userService.checkByEmail(payload.getEmail())) {
-            throw BaseException.of(EMAIL_ALREADY_REGISTERED);
-        }
+        throwIf(
+                () -> userService.checkByEmail(payload.getEmail()),
+                BaseException.of(EMAIL_ALREADY_REGISTERED)
+        );
 
         Role defaultRole = roleService.getDefaultRole();
 
