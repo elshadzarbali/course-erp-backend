@@ -37,4 +37,9 @@ public class LanguageServiceImpl implements LanguageService {
     public List<Language> findAll() {
         return languageRepository.findAll();
     }
+
+    @Override
+    public Language getDefaultLanguage() {
+        return languageRepository.getDefaultLanguage().orElseThrow(BaseException::unexpected);
+    }
 }

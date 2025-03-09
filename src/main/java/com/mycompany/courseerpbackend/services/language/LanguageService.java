@@ -14,4 +14,6 @@ public interface LanguageService {
 
     List<Language> findAll();
 
+    Language getDefaultLanguage();
+
 }

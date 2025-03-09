@@ -15,5 +15,7 @@ public class Language extends BaseEntity<Long> {
 
     String name;
     Boolean hasLocalization;
+    String icon;
+    Boolean isDefault;
 
 }

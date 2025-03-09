@@ -12,5 +12,6 @@ public class LanguagePayload {
 
     // TODO: validation
     String name;
+    String icon;
 
 }

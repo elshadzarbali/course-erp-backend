@@ -18,4 +18,6 @@ public interface LanguageRepository {
 
     List<Language> findAll();
 
+    Optional<Language> getDefaultLanguage();
+
 }
