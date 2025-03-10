@@ -16,4 +16,6 @@ public interface LanguageService {
 
     Language getDefaultLanguage();
 
+    List<Language> getAllLocalizableLanguages();
+
 }

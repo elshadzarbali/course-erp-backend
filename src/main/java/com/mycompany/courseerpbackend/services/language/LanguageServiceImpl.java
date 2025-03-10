@@ -42,4 +42,9 @@ public class LanguageServiceImpl implements LanguageService {
     public Language getDefaultLanguage() {
         return languageRepository.getDefaultLanguage().orElseThrow(BaseException::unexpected);
     }
+
+    @Override
+    public List<Language> getAllLocalizableLanguages() {
+        return languageRepository.findAllLocalizableLanguages();
+    }
 }

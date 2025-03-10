@@ -20,4 +20,6 @@ public interface LanguageRepository {
 
     Optional<Language> getDefaultLanguage();
 
+    List<Language> findAllLocalizableLanguages();
+
 }

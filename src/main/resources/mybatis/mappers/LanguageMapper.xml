@@ -35,6 +35,13 @@
         WHERE l.is_default = true and l.is_deleted = false
     </select>
 
+    <select id="findAllLocalizableLanguages" resultType="Language">
+        SELECT
+            <include refid="languageBaseColumns"/>
+        FROM languages l
+        WHERE l.is_deleted = false and l.has_localization = true
+    </select>
+
     <sql id="languageBaseColumns">
         l.id,
         l.name,
