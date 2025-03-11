@@ -30,4 +30,10 @@ public class SubjectBusinessServiceImpl implements SubjectBusinessService {
         );
     }
 
+    @Override
+    public void updateSubject(Long id, SubjectPayload subjectPayload) {
+        // TODO: (IT) check validation of courseId and languageId
+        subjectService.update(SubjectEntityMapper.INSTANCE.fromSubjectPayloadToEntity(subjectPayload, id));
+    }
+
 }

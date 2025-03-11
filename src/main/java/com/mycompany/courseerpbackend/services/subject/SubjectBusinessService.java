@@ -6,4 +6,6 @@ public interface SubjectBusinessService {
 
     void createSubject(SubjectPayload subjectPayload);
 
+    void updateSubject(Long id, SubjectPayload subjectPayload);
+
 }
