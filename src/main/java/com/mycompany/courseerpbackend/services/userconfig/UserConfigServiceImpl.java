@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.mycompany.courseerpbackend.constants.UserConfigConstants.DEFAULT_LANGUAGE;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -36,6 +38,11 @@ public class UserConfigServiceImpl implements UserConfigService {
     @Override
     public List<UserConfig> findAll() {
         return userConfigRepository.findAll();
+    }
+
+    @Override
+    public void updateUserLanguage(Long userId, Long langId) {
+        userConfigRepository.updateConfig(DEFAULT_LANGUAGE, langId, userId);
     }
 
 }

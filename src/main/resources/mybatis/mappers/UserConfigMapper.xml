@@ -13,6 +13,12 @@
         WHERE uc.id = #{id}
     </update>
 
+    <update id="updateConfig">
+        UPDATE user_configs uc
+        SET value = #{value}
+        WHERE uc.id = #{id} AND uc.user_id = #{userId} AND uc.is_deleted = false
+    </update>
+
     <select id="findById" resultType="UserConfig">
         SELECT
             <include refid="userConfigBaseColumns"/>
