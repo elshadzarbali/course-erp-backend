@@ -69,6 +69,9 @@ public class SecurityConfig {
                     // Test endpoints
                     request.requestMatchers("/test").authenticated();
                     request.requestMatchers("/test/no-auth").permitAll();
+
+                    // Temporary
+                    request.requestMatchers("/**").authenticated();
                 })
                 .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(eh -> eh.authenticationEntryPoint(authEntryPoint))
