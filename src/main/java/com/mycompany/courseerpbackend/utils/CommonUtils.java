@@ -11,8 +11,9 @@ public class CommonUtils {
 
     }
 
+    // It throws an exception when the condition is true
     public static void throwIf(Checker checker, BaseException ex) {
-        if (!checker.check()) {
+        if (checker.check()) {
             throw ex;
         }
     }
