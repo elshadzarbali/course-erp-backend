@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.student;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages;
 import com.mycompany.courseerpbackend.models.mappers.UserEntityMapper;
 import com.mycompany.courseerpbackend.models.mybatis.role.Role;
@@ -37,7 +37,7 @@ public class StudentBusinessServiceImpl implements StudentBusinessService {
     public void addStudent(StudentPayload studentPayload) {
         throwIf(
                 () -> userService.checkByPhoneNumber(studentPayload.getPhoneNumber()),
-                BaseException.of(PHONE_NUMBER_ALREADY_EXIST)
+                ExceptionBuilder.of(PHONE_NUMBER_ALREADY_EXIST)
         );
 
         // TODO: We will change role
@@ -64,7 +64,7 @@ public class StudentBusinessServiceImpl implements StudentBusinessService {
         // checking if students already added to group
         throwIf(
                 () -> studentService.checkStudentAlreadyAddedToGroup(studentId, groupId),
-                BaseException.of(ErrorResponseMessages.STUDENT_ALREADY_ADDED_TO_GROUP)
+                ExceptionBuilder.of(ErrorResponseMessages.STUDENT_ALREADY_ADDED_TO_GROUP)
         );
 
         studentService.addStudentToGroup(studentId, groupId);

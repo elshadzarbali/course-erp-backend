@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.userconfig;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.userconfig.UserConfig;
 import com.mycompany.courseerpbackend.repository.UserConfigRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class UserConfigServiceImpl implements UserConfigService {
     @Override
     public UserConfig findById(String id) {
         return userConfigRepository.findById(id).orElseThrow(
-                () -> BaseException.notFound(UserConfig.class.getSimpleName(), "id", id)
+                () -> ExceptionBuilder.notFound(UserConfig.class.getSimpleName(), "id", id)
         );
     }
 

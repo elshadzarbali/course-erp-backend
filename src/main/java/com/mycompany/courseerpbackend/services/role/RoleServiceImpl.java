@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.role;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.role.Role;
 import com.mycompany.courseerpbackend.repository.RoleRepository;
 import lombok.AccessLevel;
@@ -20,7 +20,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getDefaultRole() {
-        return roleRepository.findByName(OWNER).orElseThrow(BaseException::unexpected);
+        return roleRepository.findByName(OWNER).orElseThrow(ExceptionBuilder::unexpected);
     }
 
 }

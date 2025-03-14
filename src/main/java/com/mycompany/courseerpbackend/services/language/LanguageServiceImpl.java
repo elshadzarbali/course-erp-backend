@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.language;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.language.Language;
 import com.mycompany.courseerpbackend.repository.LanguageRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class LanguageServiceImpl implements LanguageService {
     @Override
     public Language findById(Long id) {
         return languageRepository.findById(id).orElseThrow(
-                () -> BaseException.notFound(Language.class.getSimpleName(), "id", String.valueOf(id))
+                () -> ExceptionBuilder.notFound(Language.class.getSimpleName(), "id", String.valueOf(id))
         );
     }
 
@@ -40,7 +40,7 @@ public class LanguageServiceImpl implements LanguageService {
 
     @Override
     public Language getDefaultLanguage() {
-        return languageRepository.getDefaultLanguage().orElseThrow(BaseException::unexpected);
+        return languageRepository.getDefaultLanguage().orElseThrow(ExceptionBuilder::unexpected);
     }
 
     @Override

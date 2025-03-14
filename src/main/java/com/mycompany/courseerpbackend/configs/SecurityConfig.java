@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.configs;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.filters.AuthorizationFilter;
 import com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages;
 import jakarta.servlet.ServletException;
@@ -92,7 +92,7 @@ public class SecurityConfig {
         public void commence(HttpServletRequest request,
                              HttpServletResponse response,
                              AuthenticationException authException) throws IOException, ServletException {
-            resolver.resolveException(request, response, null, (Exception) BaseException.of(ErrorResponseMessages.FORBIDDEN));
+            resolver.resolveException(request, response, null, (Exception) ExceptionBuilder.of(ErrorResponseMessages.FORBIDDEN));
         }
     }
 }

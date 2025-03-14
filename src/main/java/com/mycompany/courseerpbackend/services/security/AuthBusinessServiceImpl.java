@@ -2,6 +2,7 @@ package com.mycompany.courseerpbackend.services.security;
 
 import com.mycompany.courseerpbackend.constants.OTPConstants;
 import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.common.proceedkey.ProceedKey;
 import com.mycompany.courseerpbackend.models.dto.RefreshTokenDto;
 import com.mycompany.courseerpbackend.models.dto.SendOTPDto;
@@ -89,7 +90,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     public ProceedKey signUp(SignUpPayload payload) {
         throwIf(
                 () -> userService.checkByEmail(payload.getEmail()),
-                BaseException.of(EMAIL_ALREADY_REGISTERED)
+                ExceptionBuilder.of(EMAIL_ALREADY_REGISTERED)
         );
 
         Role defaultRole = roleService.getDefaultRole();
@@ -150,7 +151,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
             log.info("User confirmed!");
         } else {
             // TODO: (IT) Customize exception otp not found or something like this
-            throw BaseException.unexpected();
+            throw ExceptionBuilder.unexpected();
         }
     }
 
@@ -173,7 +174,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
         } catch (AuthenticationException e) {
             throw e.getCause() instanceof BaseException ?
                     (BaseException) e.getCause() :
-                    BaseException.unexpected();
+                    ExceptionBuilder.unexpected();
         }
     }
 

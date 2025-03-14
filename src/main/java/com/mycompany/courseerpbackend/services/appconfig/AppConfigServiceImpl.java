@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.appconfig;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.appconfig.AppConfig;
 import com.mycompany.courseerpbackend.repository.AppConfigRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class AppConfigServiceImpl implements AppConfigService {
     @Override
     public AppConfig findById(String id) {
         return appConfigRepository.findById(id).orElseThrow(
-                () -> BaseException.notFound(AppConfig.class.getSimpleName(), "id", id)
+                () -> ExceptionBuilder.notFound(AppConfig.class.getSimpleName(), "id", id)
         );
     }
 
