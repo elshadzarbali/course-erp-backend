@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.helpers;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.services.redis.RedisService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ public class OTPHelperTest {
             otpHelper.isValid(key, otp);
             fail("Validation should fail for an invalid OTP");
         } catch (Exception e) {
-            assertEquals(BaseException.of(OTP_IS_NOT_VALID).getMessage(), e.getMessage());
+            assertEquals(ExceptionBuilder.of(OTP_IS_NOT_VALID).getMessage(), e.getMessage());
         }
     }
 

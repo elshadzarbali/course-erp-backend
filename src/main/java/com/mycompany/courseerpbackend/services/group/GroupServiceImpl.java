@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.group;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.group.Group;
 import com.mycompany.courseerpbackend.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public Group findById(Long id) {
         return groupRepository.findById(id).orElseThrow(
-                () -> BaseException.notFound(Group.class.getSimpleName(), "id", String.valueOf(id))
+                () -> ExceptionBuilder.notFound(Group.class.getSimpleName(), "id", String.valueOf(id))
         );
     }
 

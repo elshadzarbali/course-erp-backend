@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.country;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.country.Country;
 import com.mycompany.courseerpbackend.repository.CountryRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +29,7 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public Country findById(Long id) {
         return countryRepository.findById(id).orElseThrow(
-                () -> BaseException.notFound(Country.class.getSimpleName(), "id", String.valueOf(id))
+                () -> ExceptionBuilder.notFound(Country.class.getSimpleName(), "id", String.valueOf(id))
         );
     }
 

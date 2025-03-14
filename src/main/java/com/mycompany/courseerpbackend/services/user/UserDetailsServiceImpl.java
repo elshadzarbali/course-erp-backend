@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.user;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.models.security.LoggedInUserDetails;
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.getByEmail(username);
 
-        throwIf(() -> !user.isActive(), BaseException.of(ErrorResponseMessages.USER_NOT_ACTIVE));
+        throwIf(() -> !user.isActive(), ExceptionBuilder.of(ErrorResponseMessages.USER_NOT_ACTIVE));
 
         return new LoggedInUserDetails(user.getEmail(), user.getPassword(), new ArrayList<>());
     }

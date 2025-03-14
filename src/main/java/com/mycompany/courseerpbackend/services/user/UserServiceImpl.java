@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.services.user;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
 import com.mycompany.courseerpbackend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +27,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(
-                () -> BaseException.notFound(User.class.getSimpleName(), "email", email)
+                () -> ExceptionBuilder.notFound(User.class.getSimpleName(), "email", email)
         );
     }
 
     @Override
     public User getById(Long id) {
         return userRepository.findById(id).orElseThrow(
-                () -> BaseException.notFound(User.class.getSimpleName(), "id", String.valueOf(id))
+                () -> ExceptionBuilder.notFound(User.class.getSimpleName(), "id", String.valueOf(id))
         );
     }
 

@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.helpers;
 
-import com.mycompany.courseerpbackend.exception.BaseException;
+import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.services.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -23,7 +23,7 @@ public class OTPHelper {
     public void isValid(String key, String otp) {
         String otpValue = redisService.get(key);
         if (otpValue == null || !otpValue.equals(otp))
-            throw BaseException.of(OTP_IS_NOT_VALID);
+            throw ExceptionBuilder.of(OTP_IS_NOT_VALID);
     }
 
 }
