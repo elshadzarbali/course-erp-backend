@@ -1,6 +1,7 @@
 package com.mycompany.courseerpbackend.services.security;
 
 import com.mycompany.courseerpbackend.constants.OTPConstants;
+import com.mycompany.courseerpbackend.constants.UserConfigConstants;
 import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.common.proceedkey.ProceedKey;
@@ -15,6 +16,7 @@ import com.mycompany.courseerpbackend.models.mybatis.course.Course;
 import com.mycompany.courseerpbackend.models.mybatis.employee.Employee;
 import com.mycompany.courseerpbackend.models.mybatis.role.Role;
 import com.mycompany.courseerpbackend.models.mybatis.user.User;
+import com.mycompany.courseerpbackend.models.mybatis.userconfig.UserConfig;
 import com.mycompany.courseerpbackend.models.payload.auth.LoginPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpPayload;
@@ -24,11 +26,13 @@ import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.branch.BranchService;
 import com.mycompany.courseerpbackend.services.course.CourseService;
 import com.mycompany.courseerpbackend.services.employee.EmployeeService;
+import com.mycompany.courseerpbackend.services.language.LanguageService;
 import com.mycompany.courseerpbackend.services.otp.OTPFactory;
 import com.mycompany.courseerpbackend.services.otp.OTPProceedTokenManager;
 import com.mycompany.courseerpbackend.services.redis.RedisService;
 import com.mycompany.courseerpbackend.services.role.RoleService;
 import com.mycompany.courseerpbackend.services.user.UserService;
+import com.mycompany.courseerpbackend.services.userconfig.UserConfigService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -42,6 +46,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import static com.mycompany.courseerpbackend.constants.UserConfigConstants.DEFAULT_LANGUAGE;
 import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.EMAIL_ALREADY_REGISTERED;
 import static com.mycompany.courseerpbackend.utils.CommonUtils.throwIf;
 
@@ -65,6 +70,8 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     final EmployeeService employeeService;
     final OTPProceedTokenManager otpProceedTokenManager;
     final RedisService redisService;
+    final UserConfigService userConfigService;
+    final LanguageService languageService;
 
     @Override
     public LoginResponse login(LoginPayload payload) {
@@ -122,6 +129,16 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
         5. verification otp
         6. login - if user is not confirmed, user can't log in system
          */
+
+        // TODO: (IT) ID must be unique, in this case, we use key instead of user.
+        //  Also we use entityId instead of setting id of language to value.
+        //  We can set entity's name or something to value
+        UserConfig userConfig = UserConfig.builder()
+                .id(DEFAULT_LANGUAGE)
+                .userId(user.getId())
+                .value(String.valueOf(languageService.getDefaultLanguage().getId()))
+                .build();
+        userConfigService.insert(userConfig);
 
         return ProceedKey.builder().proceedKey(otpProceedTokenManager.generate(user)).build();
     }
