@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/v1/students")
+@RequestMapping("/v1/teachers")
 @RequiredArgsConstructor
 public class TeacherController {
 
@@ -18,7 +18,7 @@ public class TeacherController {
 
     @PostMapping
     public BaseResponse<Void> createTeacher(@RequestBody TeacherPayload teacherPayload) {
-        teacherBusinessService.insert(teacherPayload);
+        teacherBusinessService.createTeacher(teacherPayload);
         return BaseResponse.created();
     }
 
