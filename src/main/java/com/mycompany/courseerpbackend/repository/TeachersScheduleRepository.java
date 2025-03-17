@@ -12,6 +12,8 @@ public interface TeachersScheduleRepository {
 
     void insert(TeachersSchedule teachersSchedule);
 
+//    void upsert(@Param("schedules") List<TeachersSchedule> schedules);
+
     void update(TeachersSchedule teachersSchedule);
 
     Optional<TeachersSchedule> findById(@Param("id") Long id);
