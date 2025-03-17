@@ -3,6 +3,7 @@ package com.mycompany.courseerpbackend.filters;
 import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.services.security.AccessTokenManager;
 import com.mycompany.courseerpbackend.services.security.AuthBusinessService;
+import com.mycompany.courseerpbackend.utils.RequestDataStorage;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -17,6 +18,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Objects;
 
+import static com.mycompany.courseerpbackend.constants.RequestConstants.USER_ID;
+import static com.mycompany.courseerpbackend.constants.RequestConstants.USER_LANGUAGE;
 import static com.mycompany.courseerpbackend.constants.TokenConstants.PREFIX;
 
 @Component
@@ -26,6 +29,7 @@ public class AuthorizationFilter extends OncePerRequestFilter {
 
     private final AccessTokenManager accessTokenManager;
     private final AuthBusinessService authBusinessService;
+    private final RequestDataStorage requestDataStorage;
 
     // I think, if exceptions thrown by methods called in doFilterInternal, spring translate it as
     // InsufficientAuthenticationException. So this AuthenticationException is handled by
@@ -35,6 +39,10 @@ public class AuthorizationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+        // TODO: (IT) It must be come from JWT token
+        requestDataStorage.setUserId(request.getHeader(USER_ID));
+        requestDataStorage.setUserLanguage(request.getHeader(USER_LANGUAGE));
 
         try {
             if (Objects.nonNull(token) && token.startsWith(PREFIX)) {
