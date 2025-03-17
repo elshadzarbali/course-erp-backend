@@ -1,6 +1,6 @@
 package com.mycompany.courseerpbackend.models.mybatis.teacher;
 
-import com.mycompany.courseerpbackend.models.mybatis.base.BaseEntity;
+import com.mycompany.courseerpbackend.models.mybatis.base.IsDeletedEntity;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
@@ -14,8 +14,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper=true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class TeachersSchedule extends BaseEntity<Long> {
+public class TeachersSchedule extends IsDeletedEntity {
 
+    Long teacherId;
     Long branchId;
     DayOfWeek dayOfWeek;
     LocalDateTime startTime;

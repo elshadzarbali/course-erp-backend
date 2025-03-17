@@ -1,4 +1,4 @@
-package com.mycompany.courseerpbackend.services.teacher;
+package com.mycompany.courseerpbackend.services.teacher.schedule;
 
 import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.mybatis.teacher.TeachersSchedule;
@@ -20,6 +20,11 @@ public class TeachersScheduleServiceImpl implements TeachersScheduleService {
     public void insert(TeachersSchedule teachersSchedule) {
         teachersScheduleRepository.insert(teachersSchedule);
     }
+
+//    @Override
+//    public void upsert(List<TeachersSchedule> schedules) {
+//        teachersScheduleRepository.upsert(schedules);
+//    }
 
     @Override
     public void update(TeachersSchedule teachersSchedule) {
