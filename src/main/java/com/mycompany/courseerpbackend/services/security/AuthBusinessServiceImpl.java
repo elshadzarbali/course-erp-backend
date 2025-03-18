@@ -1,7 +1,6 @@
 package com.mycompany.courseerpbackend.services.security;
 
 import com.mycompany.courseerpbackend.constants.OTPConstants;
-import com.mycompany.courseerpbackend.constants.UserConfigConstants;
 import com.mycompany.courseerpbackend.exception.BaseException;
 import com.mycompany.courseerpbackend.exception.ExceptionBuilder;
 import com.mycompany.courseerpbackend.models.common.proceedkey.ProceedKey;
@@ -176,6 +175,7 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
     public void setAuthentication(String email) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(email);
 
+        // TODO: (IT) I think, i can set userId, userLanguageId as credentials
         SecurityContextHolder.getContext().setAuthentication(
                 new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities())
         );

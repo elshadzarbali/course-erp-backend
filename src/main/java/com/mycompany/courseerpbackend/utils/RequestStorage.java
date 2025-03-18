@@ -10,10 +10,9 @@ import org.springframework.web.context.annotation.RequestScope;
 @Component
 @RequestScope
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class RequestDataStorage {
+public class RequestStorage {
 
-    // TODO: (IT) They should be Long type
-    String userId;
-    String userLanguage;
+    Long userId;
+    Long userLanguageId;
 
 }
