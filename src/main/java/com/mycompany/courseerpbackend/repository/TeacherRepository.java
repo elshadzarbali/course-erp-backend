@@ -20,4 +20,7 @@ public interface TeacherRepository {
 
     List<Teacher> findAll();
 
+    // TODO: (IT) userId in teacherTable should be unique
+    Optional<Teacher> findByUserId(@Param("userId") Long userId);
+
 }
