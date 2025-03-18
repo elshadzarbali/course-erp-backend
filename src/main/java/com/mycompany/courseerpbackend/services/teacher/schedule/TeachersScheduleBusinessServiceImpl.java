@@ -3,6 +3,8 @@ package com.mycompany.courseerpbackend.services.teacher.schedule;
 import com.mycompany.courseerpbackend.models.mappers.TeachersScheduleMapper;
 import com.mycompany.courseerpbackend.models.mybatis.teacher.TeachersSchedule;
 import com.mycompany.courseerpbackend.models.payload.teacher.schedule.TeacherSchedulePayload;
+import com.mycompany.courseerpbackend.services.teacher.TeacherService;
+import com.mycompany.courseerpbackend.utils.RequestStorage;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,9 +22,13 @@ import java.util.Set;
 public class TeachersScheduleBusinessServiceImpl implements TeachersScheduleBusinessService {
 
     final TeachersScheduleService teachersScheduleService;
+    final RequestStorage requestStorage;
+    final TeacherService teacherService;
 
     @Override
-    public void addTeacherSchedule(TeacherSchedulePayload teacherSchedulePayload, Long teacherId) {
+    public void addTeacherSchedule(TeacherSchedulePayload teacherSchedulePayload) {
+        Long teacherId = teacherService.findByUserId(requestStorage.getUserId()).getId();
+
         Map<DayOfWeek, TeacherSchedulePayload.TeacherScheduleData> entries = teacherSchedulePayload.getEntries();
         Set<Map.Entry<DayOfWeek, TeacherSchedulePayload.TeacherScheduleData>> entrySet = entries.entrySet();
         for (Map.Entry<DayOfWeek, TeacherSchedulePayload.TeacherScheduleData> entry : entrySet) {

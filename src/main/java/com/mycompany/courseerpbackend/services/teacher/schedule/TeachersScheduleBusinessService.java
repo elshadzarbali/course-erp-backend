@@ -4,7 +4,7 @@ import com.mycompany.courseerpbackend.models.payload.teacher.schedule.TeacherSch
 
 public interface TeachersScheduleBusinessService {
 
-    void addTeacherSchedule(TeacherSchedulePayload teacherSchedulePayload, Long teacherId);
+    void addTeacherSchedule(TeacherSchedulePayload teacherSchedulePayload);
 
 //    void upsertTeacherSchedule(TeacherSchedulePayload teacherSchedulePayload, Long teacherId);
 
