@@ -14,4 +14,6 @@ public interface TeacherService {
 
     List<Teacher> findAll();
 
+    Teacher findByUserId(Long userId);
+
 }

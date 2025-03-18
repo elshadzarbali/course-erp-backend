@@ -21,6 +21,14 @@
           AND t.is_deleted = false
     </select>
 
+    <select id="findByUserId" resultType="Teacher">
+        SELECT
+            <include refid="teacherBaseColumns"/>
+        FROM teachers t
+        WHERE t.user_id = #{userId}
+        AND t.is_deleted = false
+    </select>
+
     <select id="findAll" resultType="Teacher">
         SELECT
             <include refid="teacherBaseColumns"/>

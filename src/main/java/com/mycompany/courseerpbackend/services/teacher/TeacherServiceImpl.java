@@ -38,4 +38,11 @@ public class TeacherServiceImpl implements TeacherService {
         return teacherRepository.findAll();
     }
 
+    @Override
+    public Teacher findByUserId(Long userId) {
+        return teacherRepository.findByUserId(userId).orElseThrow(
+                () -> ExceptionBuilder.notFound(Teacher.class.getSimpleName(), "userId", userId)
+        );
+    }
+
 }
