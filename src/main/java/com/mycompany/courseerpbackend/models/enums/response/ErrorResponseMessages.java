@@ -15,7 +15,8 @@ public enum ErrorResponseMessages implements ResponseMessages {
     FORBIDDEN("forbidden", "Forbidden", HttpStatus.FORBIDDEN),
     USER_NOT_ACTIVE("user_not_active", "User is not active", HttpStatus.FORBIDDEN),
     STUDENT_ALREADY_ADDED_TO_GROUP("student_already_added_to_group", "Student is already added to group", HttpStatus.CONFLICT),
-    OTP_IS_NOT_VALID("otp_is_not_valid", "OTP is not valid", HttpStatus.CONFLICT);
+    OTP_IS_NOT_VALID("otp_is_not_valid", "OTP is not valid", HttpStatus.CONFLICT),
+    VALIDATION_FAILED("validation_failed", "Validation failed", HttpStatus.BAD_REQUEST);
 
     String key;
     String message;
