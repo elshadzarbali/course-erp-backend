@@ -9,6 +9,7 @@ import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPChanne
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPRequest;
 import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.security.AuthBusinessService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +24,7 @@ public class AuthController {
     private final AuthBusinessService authBusinessService;
 
     @PostMapping("/login")
-    public BaseResponse<LoginResponse> login(@RequestBody LoginPayload payload) {
+    public BaseResponse<LoginResponse> login(@Valid @RequestBody LoginPayload payload) {
         return BaseResponse.success(authBusinessService.login(payload));
     }
 

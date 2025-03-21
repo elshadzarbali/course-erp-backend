@@ -9,6 +9,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
 import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.NOT_FOUND;
+import static com.mycompany.courseerpbackend.models.enums.response.ErrorResponseMessages.VALIDATION_FAILED;
 import static com.mycompany.courseerpbackend.models.enums.response.SuccessResponseMessages.CREATED;
 import static com.mycompany.courseerpbackend.models.enums.response.SuccessResponseMessages.SUCCESS;
 
@@ -89,5 +90,13 @@ public class BaseResponse<T> {
 
     public static <T> BaseResponse<T> created() {
         return BaseResponse.created(null);
+    }
+
+    public static <T> BaseResponse<T> validationFailed(T errors) {
+        return BaseResponse.<T>builder()
+                .status(HttpStatus.BAD_REQUEST)
+                .meta(Meta.of(VALIDATION_FAILED))
+                .data(errors)
+                .build();
     }
 }
