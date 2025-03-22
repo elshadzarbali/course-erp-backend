@@ -1,4 +1,4 @@
-package com.mycompany.courseerpbackend.models.reponse.auth;
+package com.mycompany.courseerpbackend.models.response.auth;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -1,4 +1,4 @@
-package com.mycompany.courseerpbackend.models.reponse.appconfig;
+package com.mycompany.courseerpbackend.models.response.appconfig;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

@@ -6,7 +6,7 @@ import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPChannelRequest;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPRequest;
-import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
+import com.mycompany.courseerpbackend.models.response.auth.LoginResponse;
 
 public interface AuthBusinessService {
 
