@@ -4,6 +4,7 @@ import com.mycompany.courseerpbackend.models.base.BaseResponse;
 import com.mycompany.courseerpbackend.models.mappers.LanguageEntityMapper;
 import com.mycompany.courseerpbackend.models.mybatis.language.Language;
 import com.mycompany.courseerpbackend.models.payload.language.LanguagePayload;
+import com.mycompany.courseerpbackend.models.response.language.LanguageResponse;
 import com.mycompany.courseerpbackend.services.language.LanguageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,12 @@ public class LanguageController {
     }
 
     @GetMapping("/localizable")
-    public BaseResponse<List<Language>> getAllLocalizableLanguages() {
-        return BaseResponse.success(languageService.getAllLocalizableLanguages());
+    public BaseResponse<List<LanguageResponse>> getAllLocalizableLanguages() {
+        return BaseResponse.success(
+                LanguageEntityMapper.INSTANCE.fromLanguageToLanguageResponse(
+                        languageService.getAllLocalizableLanguages()
+                )
+        );
     }
 
 }
