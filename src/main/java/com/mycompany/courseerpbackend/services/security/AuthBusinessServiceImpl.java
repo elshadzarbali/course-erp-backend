@@ -21,7 +21,7 @@ import com.mycompany.courseerpbackend.models.payload.auth.RefreshTokenPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpPayload;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPChannelRequest;
 import com.mycompany.courseerpbackend.models.payload.auth.signup.SignUpOTPRequest;
-import com.mycompany.courseerpbackend.models.reponse.auth.LoginResponse;
+import com.mycompany.courseerpbackend.models.response.auth.LoginResponse;
 import com.mycompany.courseerpbackend.services.branch.BranchService;
 import com.mycompany.courseerpbackend.services.course.CourseService;
 import com.mycompany.courseerpbackend.services.employee.EmployeeService;

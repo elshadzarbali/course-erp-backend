@@ -2,7 +2,7 @@ package com.mycompany.courseerpbackend.controller;
 
 import com.mycompany.courseerpbackend.models.base.BaseResponse;
 import com.mycompany.courseerpbackend.models.mappers.AppConfigEntityMapper;
-import com.mycompany.courseerpbackend.models.reponse.appconfig.AppConfigResponse;
+import com.mycompany.courseerpbackend.models.response.appconfig.AppConfigResponse;
 import com.mycompany.courseerpbackend.services.appconfig.AppConfigService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

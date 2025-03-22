@@ -1,7 +1,7 @@
 package com.mycompany.courseerpbackend.models.mappers;
 
 import com.mycompany.courseerpbackend.models.mybatis.appconfig.AppConfig;
-import com.mycompany.courseerpbackend.models.reponse.appconfig.AppConfigResponse;
+import com.mycompany.courseerpbackend.models.response.appconfig.AppConfigResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
