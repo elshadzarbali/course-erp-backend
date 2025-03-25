@@ -36,7 +36,6 @@
         <module name="ParameterName"/>
 
         <!-- Prevent unnecessary whitespace -->
-        <module name="EmptyLineSeparator"/>
         <module name="WhitespaceAround"/>
 
         <!-- Ensures a space must exist after certain tokens -->
