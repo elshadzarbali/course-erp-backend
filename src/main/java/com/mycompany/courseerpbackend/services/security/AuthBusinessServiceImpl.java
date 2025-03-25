@@ -55,7 +55,7 @@ import static com.mycompany.courseerpbackend.utils.CommonUtils.throwIf;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AuthBusinessServiceImpl implements AuthBusinessService {
 
-    final static String COURSE_BRANCH_DEFAULT_PATTERN = "%s Default Branch";
+    static final String COURSE_BRANCH_DEFAULT_PATTERN = "%s Default Branch";
 
     final AuthenticationManager authenticationManager;
     final AccessTokenManager accessTokenManager;
@@ -189,9 +189,9 @@ public class AuthBusinessServiceImpl implements AuthBusinessService {
                     new UsernamePasswordAuthenticationToken(payload.getEmail(), payload.getPassword())
             );
         } catch (AuthenticationException e) {
-            throw e.getCause() instanceof BaseException ?
-                    (BaseException) e.getCause() :
-                    ExceptionBuilder.unexpected();
+            throw e.getCause() instanceof BaseException
+                    ? (BaseException) e.getCause()
+                    : ExceptionBuilder.unexpected();
         }
     }
 

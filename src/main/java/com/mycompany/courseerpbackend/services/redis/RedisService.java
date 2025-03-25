@@ -7,7 +7,6 @@ import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 @Service
 @Slf4j
@@ -15,7 +14,6 @@ import java.time.temporal.ChronoUnit;
 public class RedisService {
 
     private final RedissonClient redissonClient;
-
 
     public <T> void set(String key, T value, long minutes) {
         set(key, value, Duration.ofMinutes(minutes));

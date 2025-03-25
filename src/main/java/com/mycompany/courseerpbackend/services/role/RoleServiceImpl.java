@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class RoleServiceImpl implements RoleService {
 
-    final static String OWNER = "OWNER";
+    static final String OWNER = "OWNER";
     final RoleRepository roleRepository;
 
     @Override

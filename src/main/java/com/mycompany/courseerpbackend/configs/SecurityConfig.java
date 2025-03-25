@@ -92,7 +92,9 @@ public class SecurityConfig {
         public void commence(HttpServletRequest request,
                              HttpServletResponse response,
                              AuthenticationException authException) throws IOException, ServletException {
-            resolver.resolveException(request, response, null, (Exception) ExceptionBuilder.of(ErrorResponseMessages.FORBIDDEN));
+            resolver.resolveException(
+                    request, response, null, (Exception) ExceptionBuilder.of(ErrorResponseMessages.FORBIDDEN)
+            );
         }
     }
 }
