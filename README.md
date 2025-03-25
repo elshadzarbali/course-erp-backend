@@ -20,3 +20,18 @@ The **Course ERP** project is a comprehensive platform designed to streamline th
 - **Document Sharing**: Teachers can share important documents and study materials with their students, enhancing the learning experience.
 
 The **Course ERP** project is a versatile solution that simplifies administrative tasks, enhances communication, and optimizes the overall educational experience within Course Academies.
+
+## About This Project
+
+This **Course ERP** project is based on [Hamid Sultanzadeh's YouTube Live video series](https://www.youtube.com/watch?v=eljROZvKMyc&list=PLHF_YRlvkcRfSosvhcFgGwlfxgEMLH5yx).
+The repository is an extension and enhancement of the original project hosted on [Hamid's WebPerSide GitHub](https://github.com/webperside/course-erp-backend/).
+
+### Branch Structure:
+
+- **main**: Contains the latest stable code updates.
+
+- **core**: Contains code from live videos, along with tasks demonstrated during the live streams.
+
+- **core-ext**: Includes tasks that were opened in the original repository
+
+- **dev**: Houses my personal changes and additional features beyond the live sessions and original repository content.
