@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class EmployeeServiceImpl implements EmployeeService {
 
-   private final EmployeeRepository employeeRepository;
-
+    private final EmployeeRepository employeeRepository;
 
     @Override
     public void insert(Employee employee) {

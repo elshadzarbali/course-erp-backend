@@ -2,7 +2,6 @@ package com.mycompany.courseerpbackend.controller;
 
 import com.mycompany.courseerpbackend.models.base.BaseResponse;
 import com.mycompany.courseerpbackend.models.mappers.LanguageEntityMapper;
-import com.mycompany.courseerpbackend.models.mybatis.language.Language;
 import com.mycompany.courseerpbackend.models.payload.language.LanguagePayload;
 import com.mycompany.courseerpbackend.models.response.language.LanguageResponse;
 import com.mycompany.courseerpbackend.services.language.LanguageService;

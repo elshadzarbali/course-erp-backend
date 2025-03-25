@@ -39,7 +39,8 @@ public class AccessTokenManager implements TokenGenerator<User>,
                 .setIssuedAt(now)
                 .setExpiration(exp)
                 .addClaims(claims)
-                .signWith(PublicPrivateKeyUtils.getPrivateKey(), SignatureAlgorithm.RS256) // signed with Private Key to secure token
+                .signWith(PublicPrivateKeyUtils.getPrivateKey(), SignatureAlgorithm.RS256)
+                // signed with Private Key to secure token
                 .compact();
     }
 

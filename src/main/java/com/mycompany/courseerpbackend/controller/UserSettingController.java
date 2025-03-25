@@ -20,7 +20,9 @@ public class UserSettingController {
 
     @PutMapping("/language")
     public BaseResponse<Void> updateDefaultLanguage(@RequestBody UsersLanguagePayload usersLanguagePayload) {
-        userSettingsBusinessService.updateUserDefaultLanguage(requestStorage.getUserId(), usersLanguagePayload.getLangId());
+        userSettingsBusinessService.updateUserDefaultLanguage(
+                requestStorage.getUserId(), usersLanguagePayload.getLangId()
+        );
         return BaseResponse.success();
     }
 

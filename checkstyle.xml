@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE module PUBLIC
+        "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+        "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+    <module name="NewlineAtEndOfFile"/>
+
+    <!-- Ensure correct line length -->
+    <module name="LineLength">
+        <property name="max" value="120"/>
+    </module>
+
+
+    <module name="FileTabCharacter"/>
+
+    <module name="TreeWalker">
+        <!-- Prevent unused imports -->
+        <module name="UnusedImports"/>
+
+        <!-- Enforce naming conventions -->
+        <module name="PackageName">
+            <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]*)*$"/>
+            <message key="name.invalidPattern" value="Package name ''{0}'' must conform to the ''{1}'' format."/>
+        </module>
+        <module name="TypeName">
+            <property name="severity" value="warning"/>
+            <message key="name.invalidPattern" value="Type name ''{0}'' must conform to the ''{1}'' format."/>
+        </module>
+        <module name="StaticVariableName"/>
+        <module name="MemberName"/>
+        <module name="LocalFinalVariableName"/>
+        <module name="LocalVariableName"/>
+        <module name="ConstantName"/>
+        <module name="MethodName"/>
+        <module name="ParameterName"/>
+
+        <!-- Prevent unnecessary whitespace -->
+        <module name="WhitespaceAround"/>
+
+        <!-- Ensures a space must exist after certain tokens -->
+        <module name="WhitespaceAfter"/>
+
+        <!-- Ensures there is no space after certain tokens -->
+        <module name="NoWhitespaceAfter"/>
+
+        <!-- Limit cyclomatic complexity -->
+        <module name="CyclomaticComplexity">
+            <property name="max" value="20"/>
+        </module>
+
+        <!-- Limit NPath complexity -->
+        <module name="NPathComplexity">
+            <property name="max" value="40"/>
+        </module>
+
+        <!-- Ensure proper indentation -->
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="tabWidth" value="4"/>
+        </module>
+
+        <!-- Enforces the correct array declaration style -->
+        <module name="ArrayTypeStyle"/>
+
+        <!-- Enforces L instead of l for long literals -->
+        <module name="UpperEll"/>
+
+        <!-- Limits method length to 100 lines -->
+        <module name="MethodLength">
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="100"/>
+        </module>
+
+        <!-- Limits the number of method parameters to 7 -->
+        <module name="ParameterNumber">
+            <property name="max" value="7"/>
+            <property name="ignoreOverriddenMethods" value="true"/>
+            <property name="tokens" value="METHOD_DEF"/>
+        </module>
+
+        <module name="MethodParamPad"/> <!-- Ensures proper spacing around method parameters -->
+        <module name="TypecastParenPad"/> <!-- Controls spacing in type casts -->
+        <module name="NoWhitespaceBefore"/> <!-- Prevents spaces before certain symbols -->
+        <module name="OperatorWrap"/> <!-- Ensures operators are correctly wrapped when breaking lines -->
+        <module name="ParenPad"/> <!-- Controls spaces around parentheses -->
+        <module name="ModifierOrder"/> <!-- Enforces correct order of modifiers -->
+        <module name="RedundantModifier"/> <!-- Detects unnecessary modifiers -->
+        <module name="AvoidNestedBlocks"/> <!-- Prevents unnecessary nested code blocks -->
+        <module name="EmptyBlock"/> <!-- Detects empty code blocks -->
+        <module name="LeftCurly"/> <!-- Enforces placement of { (curly braces) -->
+        <module name="RightCurly"/> <!-- Enforces correct placement of } (closing braces) -->
+
+        <!-- Ensures equals() and hashCode() are properly implemented -->
+        <module name="EqualsHashCode"/>
+
+        <!-- Prevents field hiding in methods and constructors -->
+        <module name="HiddenField">
+            <property name="tokens" value="VARIABLE_DEF"/>
+        </module>
+
+        <module name="MissingSwitchDefault"/> <!-- Requires a default case in switch statements -->
+        <module name="SimplifyBooleanExpression"/> <!-- Flags unnecessary boolean expressions -->
+        <module name="StringLiteralEquality"/>  <!-- Prevents using == for string comparison -->
+    </module>
+</module>

@@ -35,7 +35,9 @@ public class RefreshTokenManager implements TokenGenerator<RefreshTokenDto>,
         claims.put("type", "REFRESH_TOKEN");
 
         Date now = new Date();
-        Date exp = new Date(now.getTime() + securityProperties.getJwt().getRefreshTokenValidityTime(obj.isRememberMe()));
+        Date exp = new Date(
+                now.getTime() + securityProperties.getJwt().getRefreshTokenValidityTime(obj.isRememberMe())
+        );
 
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getId()))

@@ -26,7 +26,9 @@ public class GlobalExceptionHandler {
 //    @ExceptionHandler(UsernameNotFoundException.class)
 //    public ResponseEntity<BaseResponse<?>> handleUsernameNotFoundException(UsernameNotFoundException ex) {
 //        BaseException baseException = (BaseException) ex.getCause();
-//        return ResponseEntity.status(baseException.getResponseMessages().status()).body(BaseResponse.error(baseException));
+//        return ResponseEntity.status(
+//                baseException.getResponseMessages().status()).body(BaseResponse.error(baseException)
+//        );
 //    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

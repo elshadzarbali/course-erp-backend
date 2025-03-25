@@ -1,7 +1,6 @@
 package com.mycompany.courseerpbackend.services.otp;
 
 import com.mycompany.courseerpbackend.models.enums.otp.OTPChannel;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
